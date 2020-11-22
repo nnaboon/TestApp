@@ -18,6 +18,7 @@ function Home() {
         <h1 className='rectext'><br/><br/><br/>Let's have a look for some recommended Bars :)</h1>
       </header>
       <BarCard/>
+      <br />
     </div>
   );
 }

@@ -13,6 +13,8 @@ import Loginn2 from '../Login/Loginn2';
 function BarDetail({match}) {
     const barID = match.params.barID;
     const [images,setImages] = useState('');
+    const [closeday, setCloseday] = useState([]);
+
     /*
     const [ bardetail, setBardetail] = useState({});
     useEffect(() => {
@@ -23,6 +25,16 @@ function BarDetail({match}) {
       });
     },[] );
     */
+
+   var Week = [
+    {id: '0', name: 'Sunday'},
+    {id: '1', name: 'Monday'},
+    {id: '2', name: 'Tuesday'},
+    {id: '3', name: 'Wednesday'},
+    {id: '4', name: 'Thursday'},
+    {id: '5', name: 'Friday'},
+    {id: '6', name: 'Saturday'},
+  ];
 
     const favCLick = () => {
         axios.post(`http://35.240.130.253:3001/customers/${barID}/favbars`, {
@@ -35,6 +47,14 @@ function BarDetail({match}) {
         });          
     }
 
+    const MapDay = () => {
+        for(var i = 0; i < closeday.length; i++) {
+            if(closeday[i] == true) {
+                return (Week[i].name);
+            }
+        }        
+    };
+
    useEffect(() => {
     axios.get(`http://35.240.130.253:3001/bars/${barID}`, {
                     headers: {
@@ -43,6 +63,7 @@ function BarDetail({match}) {
                 }).then((response) => {
                     // console.log(response.data);
                     setImages(response.data);
+                    setCloseday(response.data.CloseWeekDay);
                 });      
     },[])
     return (
@@ -53,23 +74,25 @@ function BarDetail({match}) {
                 <br/><br/>
                 <header>
                     <h1 className='nametext'>{images.BarName}
-                    <Rating name="customized-1"
+                    {/* <Rating name="customized-1"
                             defaultValue={0} 
                             max={1}     
                             size="large"
                             onChange={favCLick}
-                    /></h1>
+                    /> */}
+                    </h1>
                 </header>
                 <br/>                    
                 <BarPic barID={barID}/>
                 <p className='destext'>
                     Bar's Description: {images.BarDescription}<br/><br/>
                     Open-Time/Close-Time: {images.OpenTime}/{images.CloseTime}<br/><br/>
-                    Close On: {images.CloseWeekDay}<br/><br/>
+                    Close On: {MapDay()}<br/><br/>
                     
                     LINE ID: {images.LineID}<br/>
                     {/* Tel: 012-345-6789<br/><br/> */}
                     Address: {images.Address}<br/><br/>
+                    OpenTime: {images.OpenTime}<br /><br />
                     Bar's Rule: {images.BarRule}<br/><br />
                     {/* Bar's Rule: If you want larger table, please tell us<br/> one day before your reserved date<br/><br/> */}
                 </p>

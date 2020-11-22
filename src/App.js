@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import BarDetail from './components/BarCard/BarDetail';
 import BarCardMatch from './components/BarCard/BarCardMatch';
-import Reserveii from './components/BarCard/Reserveii';
+// import Reserveii from './components/BarCard/Reserveii';
 import Signupchoose from './components/Login/Signupchoose';
 import Loginn from './components/Login/Loginn';
 import Forgotpw from './components/Login/Forgotpw';
@@ -28,7 +28,7 @@ function App() {
           <Route path='/cannotreserve/:barID' component={ErrorReserve}/>
           <Route path='/searchresult/' component={BarCardMatch} />
           <Route path='/BarDetail/:barID' component={BarDetail} />
-          <Route path='/Reserveii/' component={Reserveii} />
+          {/* <Route path='/Reserveii/' component={Reserveii} /> */}
           <Route path='/Forgotpw/' component={Forgotpw} />
           <Route path='/ConfirmLink/' component={ConfirmLink} />
           <Route path='/CustomerHome/' component={CustomerHome} />

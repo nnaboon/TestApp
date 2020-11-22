@@ -46,11 +46,11 @@ function Edit() {
                 <p className='edittext'>&nbsp;< EditPassword /></p>
                 <br/>
             </div>
-            <br/>
+            <br/><br/>
             <div className='cenbutton'>
                 <NavLink to='/'>
-                    <Button className='submitbut2'>
-                        <p className='submittext3'>Save Edit</p>
+                    <Button className='submitbut55'>
+                        <p className='submittext3'>Back to<br />Your Profile</p>
                     </Button>
                 </NavLink>
             </div>  
