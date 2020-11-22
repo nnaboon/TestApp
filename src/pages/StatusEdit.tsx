@@ -63,6 +63,7 @@ interface CardProps {
   DateReserve : any,
   BarName: any
   ResId: any;
+  GetData: any;
 }
 
 function StatusCancel(props: CardProps){
@@ -81,23 +82,19 @@ function StatusCancel(props: CardProps){
                 <p className='edittext'>Bar's Name : {props.BarName}</p>
                 <br/>
                 <p className='edittext'>Date : {props.DateReserve}</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <p className='edittext'>< EditReserve ResId={props.ResId} Name="DateReserve"/></p>
+                <p className='edittext'>< EditReserve ResId={props.ResId} Name="DateReserve" GetData={props.GetData}/></p>
                 <br/>
                 <p className='edittext'>People : {props.NumberOfPeople}</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <p className='edittext'>< EditReserve ResId={props.ResId} Name="NumberOfPeople"/></p>
+                <p className='edittext'>< EditReserve ResId={props.ResId} Name="NumberOfPeople" GetData={props.GetData}/></p>
                 <br/>
             </div>
             <br/>
             <div className='cenbutton'>
-              <Button onClick={toggle}
-                      className='stbut11'              
-              ><p className='submittext'>Edit</p>
-              </Button>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <Button 
                   className='stbut3'
                   onClick={() => setModal(false)}
-              ><p className='submittext'>Cancel</p>
+              ><p className='submittext'>Close</p>
               </Button>
             </div>      
           <br/><br/>

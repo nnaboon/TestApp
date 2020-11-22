@@ -11,10 +11,10 @@
 .container {
     display: flex;
     justify-content: center;
-    /* align-items: center; */
     overflow-x: scroll;
     width: 50%;
 }
+
 
 .card {
     flex-shrink: 0;

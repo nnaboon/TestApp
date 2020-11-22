@@ -27,7 +27,7 @@ const CustomerHome = () => {
                 <img src={Welcome} className="welcome" alt="" />
             </div>
             <header>
-                <h1 className='rectext'><br/><br/><br/>Let's have a look for some recommended Bars :)</h1>
+                <h1 className='rectext3'><br/><br/><br/>Let's have a look for some recommended Bars :)</h1>
             </header>
             {/* <CustomerBarCard/> */}
             

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { FormGroup, Label, Col, Button, Modal, ModalHeader }  from 'reactstrap';
 import { Formik, Form, Field, ErrorMessage , FormikHelpers } from 'formik'
@@ -12,7 +12,7 @@ import axios from 'axios';
 const RegisterSchema = Yup.object().shape({
   username: Yup.string()
     .min(4, 'Too Short!')
-    .max(20, 'Too Long!')
+    .max(30, 'Too Long!')
     .required('Required'),
   password: Yup.string()
     .min(4, 'Too Short!')
@@ -45,12 +45,12 @@ function Signup(){
   //let history = useHistory();
   
   const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
 
     const handleClick = () => history.push('/')
 
-    const handleSubmit = () => {
+    const handleChange = () => {
 
         const params = JSON.stringify(
             {
@@ -72,7 +72,16 @@ function Signup(){
         setEmail('');
         setPassword('');
         setName('');
+        handleClick();
     }
+
+
+    useEffect(() => {
+      if(email != '' && password != '' && name != ''){
+        console.log('h');
+        handleChange();
+      }
+    },[email, password, name]);
 
   return(
     <div>
@@ -92,6 +101,7 @@ function Signup(){
             }}
             onSubmit={(
               values: Value2,
+              
               { setSubmitting }: FormikHelpers<Value2>
             ) => {
               setTimeout(() => {
@@ -99,6 +109,9 @@ function Signup(){
                 history.push('/')
                 setSubmitting(false);
               }, 500);
+              setEmail(values.email);
+              setPassword(values.password);
+              setName(values.username);
             }}
             validationSchema={RegisterSchema}
           >
@@ -111,9 +124,9 @@ function Signup(){
                 <Field name="username" 
                         type="text" 
                         id="username" 
-                        value={name}
-                        onChange={(e:any) => setName(e.target.value)}
-                        //className={`form-control ${touched.username ? errors.username ? 'is-invalid' : 'is-valid' : ''}`}
+                        // value={name}
+                        // onChange={(e:any) => setName(e.target.value)}
+                        className={`form-control ${touched.username ? errors.username ? 'is-invalid' : 'is-valid' : ''}`}
                         placeholder="username"/>
                 <ErrorMessage component="div" name="username" className="invalid-feedback" />
               </FormGroup>
@@ -124,35 +137,35 @@ function Signup(){
                 <Field name="password" 
                         type="password" 
                         id="password" 
-                        value={password}
-                        onChange={(e:any) => setPassword(e.target.value)}
-                        //className={`form-control ${touched.password ? errors.password ? 'is-invalid' : 'is-valid' : ''}`}
+                        // value={password}
+                        // onChange={(e:any) => setPassword(e.target.value)}
+                        className={`form-control ${touched.password ? errors.password ? 'is-invalid' : 'is-valid' : ''}`}
                         placeholder="password"/>
                 <ErrorMessage component="div" name="password" className="invalid-feedback" />
               </FormGroup>
             </Col>
-            {/* <Col>
+            <Col>
               <FormGroup className="form-inline" action="/action_page.php">
                 <Label for="confirmPassword">Re-Password*</Label>
                 <Field name="confirmPassword" 
                         type="password" 
                         id="confirmPassword" 
-                        value={password}
-                        onChange={(e:any) => setPassword(e.target.value)}
-                        //className={`form-control ${touched.confirmPassword ? errors.confirmPassword ? 'is-invalid' : 'is-valid' : ''}`}
+                        // value={password}
+                        // onChange={(e:any) => setPassword(e.target.value)}
+                        className={`form-control ${touched.confirmPassword ? errors.confirmPassword ? 'is-invalid' : 'is-valid' : ''}`}
                         placeholder="confirm your password"/>
                 <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback" />
               </FormGroup>
-            </Col> */}
+            </Col>
             <Col>
               <FormGroup className="form-inline" action="/action_page.php">
                 <Label for="email">E-mail*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Label>
                 <Field name="email" 
                         type="email" 
                         id="email" 
-                        value={email}
-                        onChange={(e:any) => setEmail(e.target.value)}
-                        //className={`form-control ${touched.email ? errors.email ? 'is-invalid' : 'is-valid' : ''}`}
+                        // value={email}
+                        // onChange={(e:any) => setEmail(e.target.value)}
+                        className={`form-control ${touched.email ? errors.email ? 'is-invalid' : 'is-valid' : ''}`}
                         placeholder="xxxx@email.com"/>
                 <ErrorMessage component="div" name="email" className="invalid-feedback" />
               </FormGroup>
@@ -171,7 +184,7 @@ function Signup(){
                 value='submit'
                 icon='checkmark'
                 positive
-                onClick={() => {handleSubmit(); handleClick(); setModal(!modal);}}
+                onClick={() => {setModal(!modal);}}
               >
                 <p className='submittext'>Sign Up</p>
               </Button>

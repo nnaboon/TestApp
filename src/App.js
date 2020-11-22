@@ -14,6 +14,7 @@ import CustomerReserveii from './pages/CustomerReserveii';
 import CustomerBarDetail from './pages/CustomerBarDetail';
 import Edit from './pages/Edit'
 import FavBar from './pages/FavBar'
+import ErrorReserve from './pages/ErrorReserve';
 import NewPassword from './pages/NewPassword';
 import StatusCheck from './pages/StatusCheck';
 
@@ -24,13 +25,14 @@ function App() {
           <Route path='/' exact component={Home} />
           <Route path='/login' component={Loginn} />
           <Route path='/signup' component={Signupchoose}/>
+          <Route path='/cannotreserve/:barID' component={ErrorReserve}/>
           <Route path='/searchresult/' component={BarCardMatch} />
           <Route path='/BarDetail/:barID' component={BarDetail} />
           <Route path='/Reserveii/' component={Reserveii} />
           <Route path='/Forgotpw/' component={Forgotpw} />
           <Route path='/ConfirmLink/' component={ConfirmLink} />
           <Route path='/CustomerHome/' component={CustomerHome} />
-          <Route path='/CustomerBarDetail/:barID' component={CustomerBarDetail} />
+          <Route path='/CustomerBarDetail/:barid' component={CustomerBarDetail} />
           <Route path='/profile/:cusID' component={Edit} />
           <Route path='/checkstatus/' component={StatusCheck} />
           <Route path='/test2/' component={FavBar} />

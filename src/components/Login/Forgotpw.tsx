@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { FormGroup, Label, Col, Button, Modal, ModalHeader }  from 'reactstrap';
 import { Formik, Form, Field, ErrorMessage , FormikHelpers } from 'formik';
@@ -62,6 +62,12 @@ function Forgotpw(){
     });
     history.push('/ConfirmLink');
   }
+
+  useEffect(()=> {
+    if(email != ''){
+      handleSubmit();
+    }
+  }, [email]);
     
 
   return(
@@ -85,6 +91,7 @@ function Forgotpw(){
                 history.push('/ConfirmLink')
                 setSubmitting(false);
               }, 500);
+              setEmail(values.email);
             }}
             validationSchema={RegisterSchema}
           >
@@ -97,9 +104,9 @@ function Forgotpw(){
                 <Field name="email" 
                         type="email" 
                         id="email" 
-                        value={email} 
-                        onChange={(e:any) => setEmail(e.target.value)}
-                        //className={`form-control ${touched.email ? errors.email ? 'is-invalid' : 'is-valid' : ''}`}
+                        // value={email} 
+                        // onChange={(e:any) => setEmail(e.target.value)}
+                        className={`form-control ${touched.email ? errors.email ? 'is-invalid' : 'is-valid' : ''}`}
                         placeholder=""/>
                 <ErrorMessage component="div" name="email" className="invalid-feedback" />
               </FormGroup>
@@ -110,7 +117,7 @@ function Forgotpw(){
                 <Field name="email2" 
                         type="email" 
                         id="email2" 
-                        //className={`form-control ${touched.email2 ? errors.email2 ? 'is-invalid' : 'is-valid' : ''}`}
+                        className={`form-control ${touched.email2 ? errors.email2 ? 'is-invalid' : 'is-valid' : ''}`}
                         placeholder=""/>
                 <ErrorMessage component="div" name="email2" className="invalid-feedback" />
               </FormGroup>
@@ -121,7 +128,6 @@ function Forgotpw(){
                 className='submitbut3'
                 type='submit'
                 value='submit'
-                onClick={handleSubmit}
               >
                 <p className='submittext3'>Send</p>
               </Button>

@@ -12,7 +12,8 @@ import FavBar from './FavBar';
 
 function CustomerBarDetail({match} : {match:any}) {
     
-    const barID = match.params.barID;
+    const barID = match.params.barid;
+    console.log(window.barID);
     const [images,setImages] = useState<any>('');
     const [value,setValue] = useState<any>('');
 
@@ -72,10 +73,9 @@ function CustomerBarDetail({match} : {match:any}) {
         <div>
             <Navbar2 />
             <div className="bgg">
-                {/*<ul>{bardetail && bardetail.map(item => <li key={item._id}> {item._id} </li>)} </ul>*/}
                 <br/><br/>
                 <header>
-                    <h1 className='nametext'>{images.BarName}
+                    <h1 className='nametext3'>{images.BarName}
                     <Rating name="customized-1"
                             defaultValue={0} 
                             max={1}     
@@ -91,6 +91,7 @@ function CustomerBarDetail({match} : {match:any}) {
                 </header>
                 <br/>                    
                 <CustomerBarPic barID={barID}/>
+                <br /><br />
                 <p className='destext'>
                     Bar's Description: {images.BarDescription}<br/><br/>
                     Open-Time/Close-Time: {images.OpenTime}/{images.CloseTime}<br/><br/>
@@ -100,9 +101,8 @@ function CustomerBarDetail({match} : {match:any}) {
                     {/* Tel: 012-345-6789<br/><br/> */}
                     Address: {images.Address}<br/><br/>
                     Bar's Rule: {images.BarRule}<br/><br />
-                    {/* Bar's Rule: If you want larger table, please tell us<br/> one day before your reserved date<br/><br/> */}
                 </p>
-                <div className='rsdiv'>
+                <div className='cenbutton'>
                     <CustomerBarForm barID={`${barID}`}/>
                 </div>
                 <br/><br/><br/>
@@ -110,15 +110,5 @@ function CustomerBarDetail({match} : {match:any}) {
         </div>
     );
 }
-
-/*
-function BarDetail(props: { isLogin: any; }) {
-    const isLogin = props.isLogin;
-    return(<BarDescription/>);
-    if (isLogin){
-        return <ReserveForm/>;
-    }return <Login/>;
-}
-*/
 
 export default CustomerBarDetail;

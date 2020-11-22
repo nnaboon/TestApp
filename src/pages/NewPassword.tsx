@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { FormGroup, Label, Col, Button, Modal, ModalHeader }  from 'reactstrap';
 import { Formik, Form, Field, ErrorMessage , FormikHelpers } from 'formik'
@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Navbar from '../components/Navbar/Navbar';
 import './NewPassword.css';
 import * as Yup from 'yup'
-
+import axios from 'axios';
 
 const RegisterSchema = Yup.object().shape({
     newpw: Yup.string()
@@ -28,16 +28,43 @@ interface Value2{
 
 
 
-function NewPassword(){
+function NewPassword({match}: {match:any}){
+  const token = match.params.token;
   const [modal, setModal] = useState(true);
   const toggle = () => setModal(!modal);
   const closeBtn = <button className="close" onClick={toggle}>&times;</button>;
   const [password, setPassword] = useState('');
+  const [renewpassword, setRenewpassword] = useState('');
+
   let history = useHistory();
 
+  useEffect(() => {
+    if(password != '' && renewpassword != ''){
+      handleChange();
+    }
+  }, [password,renewpassword]);
+  
   const handleClick = () => {
       history.push('/')
   }
+
+  const params = {
+    "token": `${token}`,
+    "Password": password
+  }
+
+  const handleChange = () => {
+    axios.patch(`http://35.240.130.253:3001/auth/change_password`, params,{
+      headers: {
+          //'Authorization': `${window.Auth}`,
+          'Access-Control-Allow-Origin': '*'
+      }
+    }).then((response) => {
+        console.log(response.data)
+        handleClick();
+    });      
+  }
+   
 
   return(
     <div>
@@ -59,6 +86,8 @@ function NewPassword(){
                 {/*alert(JSON.stringify(values, null, 2));*/}
                 history.push('/')
                 setSubmitting(false);
+                setPassword(values.newpw);
+                setRenewpassword(values.renewpw);
               }, 500);
             }}
             validationSchema={RegisterSchema}
@@ -71,7 +100,9 @@ function NewPassword(){
                 <Label for="newpw">New Password*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Label>
                 <Field name="newpw" 
                         type="password" 
-                        id="newpw" 
+                        id="newpw"
+                        // value={password}
+                        // onChange={(e:any) => setPassword(e.target.value)} 
                         className={`form-control ${touched.newpw ? errors.newpw ? 'is-invalid' : 'is-valid' : ''}`}
                         placeholder="new password"/>
                 <ErrorMessage component="div" name="password" className="invalid-feedback" />
@@ -98,7 +129,7 @@ function NewPassword(){
                 className='submitbut4'
                 type='submit'
                 value='submit'
-                onClick={handleClick}
+                // onClick={handleChange}
               >
                 <p className='submittext4'>Change Password</p>
               </Button>

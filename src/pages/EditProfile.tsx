@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { FormGroup, Label, Col, Button, Modal, ModalHeader }  from 'reactstrap';
 import { Formik, Form, Field, ErrorMessage , FormikHelpers } from 'formik'
@@ -26,21 +26,17 @@ function EditProfile(){
   let history = useHistory();
 
   const handleClick = () => {
-    // history.push('/');
     history.push(`/profile/${window.cusID}`)
   }
   
   const handleChange = () => {
+    console.log('name', name);
+    console.log('value', value);
     const params = JSON.stringify(
       {
         [name] : value
       }
     );
-
-    // console.log(Auth);
-    // console.log(datereserve);
-    // console.log(numberofpeople);
-    // console.log('window', window.Auth);
     axios.patch(`http://35.240.130.253:3001/customers/${window.cusID}`, params,{
       headers: {
         'Authorization' : `${window.Auth}`,
@@ -51,10 +47,10 @@ function EditProfile(){
       console.log(response);
       window.Name = response.data.Name;
     });
-    //console.log(Auth);
     setValue('');
     setName('');
   }
+
 
 
   return(
@@ -77,7 +73,10 @@ function EditProfile(){
               setTimeout(() => {
                 setSubmitting(false);
               }, 500);
+              // setValue(values.detail);
+              // {console.log(values.detail)}
             }}
+            
             validationSchema={RegisterSchema}
           >
           {({ errors, touched }) => (

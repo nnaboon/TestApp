@@ -14,10 +14,10 @@ function CustomerBarCard() {
                     {images.map((image) => (
                         window.barID = image._id,
                         <Link to={`/CustomerBarDetail/${window.barID}`}>
-                        <div className="box">
-                            {(image.ProfilePicPath === '') ? <img className="box1st" src={defaultImage} /> : <img className="box1st" src={`http://35.240.130.253:3001/pictures/` + image.ProfilePicPath} /> }
+                        <div className="box_2">
+                            {(image.ProfilePicPath === '') ? <img className="box1st_2" src={defaultImage} /> : <img className="box1st_2" src={`http://35.240.130.253:3001/pictures/` + image.ProfilePicPath} /> }
                             {/* <img className="box1st" src={`http://35.240.130.253:3001/pictures/` + image.ProfilePicPath} />  */}
-                            <div className="box2nd">
+                            <div className="box2nd_2">
                                 <div className="textInBox2nd">
                                     {image.BarName}
                                 </div>
