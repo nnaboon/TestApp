@@ -3,6 +3,7 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { Link, Redirect } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
+import axios from 'axios';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
 import {Input, Modal, Sidebar} from 'semantic-ui-react';
@@ -15,6 +16,8 @@ function Navbar() {
   const [sidestate, setSidestate] = useState(false);
   const [modalPath, setModalPath] = useState(null);
   const [changePage, setChangePage] = useState(false);
+  const [images,setImages] = useState([]);
+
   const [term, setTerm] = useState('');
   const ref = useRef();
 
@@ -33,6 +36,15 @@ function Navbar() {
     setSidestate(false);
   }
   
+  useEffect(() => {
+    axios.get(`http://35.240.130.253:3001/bars`, {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                }).then((response) => {
+                    setImages(response.data);
+                });      
+    },[])
   // useEffect( () => {
   //   document.body.addEventListener('click',(event) => {
   //     if (ref.current.contains(event.target)) {
@@ -117,11 +129,6 @@ function Navbar() {
                 </div>
               );
             })}
-            {/* <div ref={ref} className="fuck" />
-            {console.log('modal' , sidestate)} */}
-
-            {/* <MyModal items={modalPath} mystate={sidestate}/>
-              {console.log('side state: ',sidestate)} */}
 
           </ul>
         </nav>

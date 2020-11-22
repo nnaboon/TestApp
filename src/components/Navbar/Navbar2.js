@@ -86,11 +86,7 @@ function Navbar() {
                 </div>
               );
             })}
-            {/* <div ref={ref} className="fuck" />
-            {console.log('modal' , sidestate)} */}
 
-            {/* <MyModal items={modalPath} mystate={sidestate}/>
-              {console.log('side state: ',sidestate)} */}
 
           </ul>
         </nav>
